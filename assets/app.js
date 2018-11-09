@@ -19,26 +19,18 @@ $(document).ready(function(){
         var date = $("#train-start").val();
         var rate = $("#frequency").val();
 
-        var startMonth = parseInt(date.slice(0, 2));
-        var startYear = parseInt(date.slice(6));
-        console.log(startMonth);
-        console.log(startYear);
-        var currentMonth = 11;
-        var currentYear = 2018;
+        var startDate = (date , "MM-DD-YYYY");
+        
+        var now = moment();
 
-        var nextArival = (currentMonth - startMonth) + ((currentYear - startYear) * 12);
-        console.log(nextArival);
-        var minsRemaining = monthsWorked * rate;
-        console.log(minsRemaining);
 
         database.ref().push({
             name: name,
             dest: dest,
             startDate: date,
             frequency: rate,
-            monthsWorked: monthsWorked,
-            totalBilled: totalBilled,
-            
+            nextArrival: nextArrival,
+            minsAway: minsAway
         });
 
     });
@@ -49,7 +41,7 @@ $(document).ready(function(){
         var rate = snapshot.val().monthlyRate;
         var startDate = snapshot.val().startDate;
         var monthsWorked = snapshot.val().monthsWorked;
-        var totalBilled = snapshot.val().totalBilled;
+        
         console.log(name);
         console.log(role);
         console.log(rate);
